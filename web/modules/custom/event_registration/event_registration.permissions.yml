@@ -1,0 +1,10 @@
+# Event Registration Permissions
+
+administer event registration:
+  title: 'Administer Event Registration'
+  description: 'Full administrative access to the event registration system including creating, editing, and deleting events, managing settings, and viewing all registrations.'
+  restrict access: true
+
+view event dashboard:
+  title: 'View Event Dashboard'
+  description: 'Access to view the registration dashboard, filter registrations, and export data to CSV.'

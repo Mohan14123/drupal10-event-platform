@@ -1,0 +1,6 @@
+# Default configuration for Event Registration module
+admin_email: 'admin@example.com'
+email_subject_user: 'Registration Confirmation - [event:name]'
+email_subject_admin: 'New Registration - [event:name]'
+enable_admin_notifications: true
+enable_user_notifications: true

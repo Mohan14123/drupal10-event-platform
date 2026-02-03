@@ -1,0 +1,159 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the Event Registration module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function event_registration_schema(): array {
+  $schema = [];
+
+  // Events table.
+  $schema['event_registration_events'] = [
+    'description' => 'Stores event configuration data.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Primary key: unique event ID.',
+      ],
+      'event_name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The name of the event.',
+      ],
+      'category' => [
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The category of the event.',
+      ],
+      'registration_start' => [
+        'type' => 'varchar',
+        'length' => 20,
+        'not null' => TRUE,
+        'description' => 'Registration start date (YYYY-MM-DD format).',
+      ],
+      'registration_end' => [
+        'type' => 'varchar',
+        'length' => 20,
+        'not null' => TRUE,
+        'description' => 'Registration end date (YYYY-MM-DD format).',
+      ],
+      'event_date' => [
+        'type' => 'varchar',
+        'length' => 20,
+        'not null' => TRUE,
+        'description' => 'The date of the event (YYYY-MM-DD format).',
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp when the event was created.',
+      ],
+      'updated' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp when the event was last updated.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'category' => ['category'],
+      'event_date' => ['event_date'],
+      'registration_window' => ['registration_start', 'registration_end'],
+    ],
+  ];
+
+  // Registrations table.
+  $schema['event_registration_registrations'] = [
+    'description' => 'Stores participant registration data.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Primary key: unique registration ID.',
+      ],
+      'full_name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Full name of the participant.',
+      ],
+      'email' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Email address of the participant.',
+      ],
+      'college_name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Name of the college or institution.',
+      ],
+      'department' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Department of the participant.',
+      ],
+      'event_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Foreign key to event_registration_events.id.',
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp when the registration was created.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'event_id' => ['event_id'],
+      'email' => ['email'],
+      'email_event' => ['email', 'event_id'],
+    ],
+    'foreign keys' => [
+      'event' => [
+        'table' => 'event_registration_events',
+        'columns' => ['event_id' => 'id'],
+      ],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function event_registration_install(): void {
+  \Drupal::messenger()->addStatus(t('Event Registration module has been installed successfully.'));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function event_registration_uninstall(): void {
+  // Delete module configuration.
+  \Drupal::configFactory()->getEditable('event_registration.settings')->delete();
+  \Drupal::messenger()->addStatus(t('Event Registration module has been uninstalled.'));
+}

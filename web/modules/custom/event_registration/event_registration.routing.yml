@@ -1,0 +1,114 @@
+# Event Registration Routes
+
+# =============================================================================
+# PUBLIC ROUTES
+# =============================================================================
+
+event_registration.register:
+  path: '/event-registration/register'
+  defaults:
+    _form: '\Drupal\event_registration\Form\RegistrationForm'
+    _title: 'Event Registration'
+  requirements:
+    _access: 'TRUE'
+
+# =============================================================================
+# AJAX ENDPOINTS
+# =============================================================================
+
+event_registration.ajax_dates:
+  path: '/event-registration/ajax/dates'
+  defaults:
+    _controller: '\Drupal\event_registration\Controller\AjaxController::getDates'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
+
+event_registration.ajax_events:
+  path: '/event-registration/ajax/events'
+  defaults:
+    _controller: '\Drupal\event_registration\Controller\AjaxController::getEvents'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
+
+# =============================================================================
+# ADMIN ROUTES
+# =============================================================================
+
+event_registration.admin:
+  path: '/admin/config/event-registration'
+  defaults:
+    _controller: '\Drupal\event_registration\Controller\AdminController::overview'
+    _title: 'Event Registration'
+  requirements:
+    _permission: 'administer event registration'
+
+event_registration.admin_events:
+  path: '/admin/config/event-registration/events'
+  defaults:
+    _controller: '\Drupal\event_registration\Controller\AdminController::eventList'
+    _title: 'Manage Events'
+  requirements:
+    _permission: 'administer event registration'
+
+event_registration.admin_event_add:
+  path: '/admin/config/event-registration/events/add'
+  defaults:
+    _form: '\Drupal\event_registration\Form\EventConfigForm'
+    _title: 'Add Event'
+  requirements:
+    _permission: 'administer event registration'
+
+event_registration.admin_event_edit:
+  path: '/admin/config/event-registration/events/{event_id}/edit'
+  defaults:
+    _form: '\Drupal\event_registration\Form\EventConfigForm'
+    _title: 'Edit Event'
+  requirements:
+    _permission: 'administer event registration'
+    event_id: '\d+'
+
+event_registration.admin_event_delete:
+  path: '/admin/config/event-registration/events/{event_id}/delete'
+  defaults:
+    _form: '\Drupal\event_registration\Form\EventDeleteForm'
+    _title: 'Delete Event'
+  requirements:
+    _permission: 'administer event registration'
+    event_id: '\d+'
+
+event_registration.admin_dashboard:
+  path: '/admin/config/event-registration/dashboard'
+  defaults:
+    _controller: '\Drupal\event_registration\Controller\AdminDashboardController::dashboard'
+    _title: 'Registration Dashboard'
+  requirements:
+    _permission: 'view event dashboard'
+
+event_registration.ajax_dashboard_filter:
+  path: '/admin/config/event-registration/dashboard/filter'
+  defaults:
+    _controller: '\Drupal\event_registration\Controller\AdminDashboardController::ajaxFilter'
+  requirements:
+    _permission: 'view event dashboard'
+  options:
+    no_cache: TRUE
+
+event_registration.export_csv:
+  path: '/admin/config/event-registration/dashboard/export'
+  defaults:
+    _controller: '\Drupal\event_registration\Controller\AdminDashboardController::exportCsv'
+    _title: 'Export Registrations'
+  requirements:
+    _permission: 'view event dashboard'
+
+event_registration.settings:
+  path: '/admin/config/event-registration/settings'
+  defaults:
+    _form: '\Drupal\event_registration\Form\SettingsForm'
+    _title: 'Event Registration Settings'
+  requirements:
+    _permission: 'administer event registration'

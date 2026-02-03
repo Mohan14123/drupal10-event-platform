@@ -1,0 +1,15 @@
+# Drupal user settings override
+# Enables password field during registration and disables email verification
+
+register: visitors
+verify_mail: false
+notify:
+  register_no_approval_required: true
+  register_admin_created: true
+  register_pending_approval: true
+  status_activated: true
+  status_blocked: true
+  status_canceled: false
+  cancel_confirm: true
+cancel_method: user_cancel_block
+password_strength: true

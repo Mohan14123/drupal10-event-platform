@@ -1,0 +1,13 @@
+name: Event Registration
+type: module
+description: 'A comprehensive event registration system with admin dashboard, AJAX-driven forms, and email notifications.'
+package: Custom
+core_version_requirement: ^10
+php: 8.2
+
+dependencies:
+  - drupal:system
+  - drupal:user
+  - drupal:node
+
+configure: event_registration.settings

@@ -1,0 +1,36 @@
+# Event Registration Libraries
+
+# Global styles with dark mode support - loaded on all pages
+global:
+  version: 1.x
+  css:
+    theme:
+      css/global.css: {}
+  js:
+    js/dark-mode.js: {}
+  dependencies:
+    - core/drupal
+
+admin:
+  version: 1.x
+  css:
+    theme:
+      css/admin-dashboard.css: {}
+
+admin-dashboard:
+  version: 1.x
+  css:
+    theme:
+      css/admin-dashboard.css: {}
+  dependencies:
+    - core/drupal
+
+registration-form:
+  version: 1.x
+  js:
+    js/registration-form.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax
+    - core/jquery
+

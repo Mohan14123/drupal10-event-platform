@@ -1,0 +1,44 @@
+# Event Registration Services
+
+services:
+  # =============================================================================
+  # REPOSITORIES
+  # =============================================================================
+  
+  event_registration.event_repository:
+    class: Drupal\event_registration\Repository\EventRepository
+    arguments: ['@database']
+
+  event_registration.registration_repository:
+    class: Drupal\event_registration\Repository\RegistrationRepository
+    arguments: ['@database']
+
+  # =============================================================================
+  # SERVICES
+  # =============================================================================
+
+  event_registration.event_service:
+    class: Drupal\event_registration\Service\EventService
+    arguments: ['@event_registration.event_repository']
+
+  event_registration.registration_service:
+    class: Drupal\event_registration\Service\RegistrationService
+    arguments:
+      - '@event_registration.registration_repository'
+      - '@event_registration.event_repository'
+      - '@event_registration.validation_service'
+      - '@event_registration.email_service'
+
+  event_registration.validation_service:
+    class: Drupal\event_registration\Service\ValidationService
+    arguments:
+      - '@event_registration.registration_repository'
+      - '@event_registration.event_repository'
+
+  event_registration.email_service:
+    class: Drupal\event_registration\Service\EmailService
+    arguments:
+      - '@plugin.manager.mail'
+      - '@config.factory'
+      - '@language_manager'
+      - '@logger.factory'

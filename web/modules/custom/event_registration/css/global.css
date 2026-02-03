@@ -1,0 +1,302 @@
+/**
+ * @file
+ * Global styles with dark mode support for Event Registration module.
+ */
+
+/* ============================================
+   CSS VARIABLES - Light Theme (Default)
+   ============================================ */
+:root {
+    /* Primary Colors */
+    --color-primary: #4a90d9;
+    --color-primary-hover: #3a7bc8;
+    --color-primary-light: #e8f0fa;
+
+    /* Background Colors */
+    --color-bg-body: #ffffff;
+    --color-bg-surface: #f5f5f5;
+    --color-bg-elevated: #ffffff;
+    --color-bg-card: #f9f9f9;
+    --color-bg-header: #4a90d9;
+
+    /* Text Colors */
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #666666;
+    --color-text-muted: #888888;
+    --color-text-inverse: #ffffff;
+
+    /* Border Colors */
+    --color-border: #e0e0e0;
+    --color-border-light: #f0f0f0;
+
+    /* Status Colors */
+    --color-success: #28a745;
+    --color-success-bg: #d4edda;
+    --color-success-text: #155724;
+    --color-warning: #ffc107;
+    --color-warning-bg: #fff3cd;
+    --color-warning-text: #856404;
+    --color-error: #dc3545;
+    --color-error-bg: #f8d7da;
+    --color-error-text: #721c24;
+    --color-info: #17a2b8;
+    --color-info-bg: #cce5ff;
+    --color-info-text: #004085;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+}
+
+/* ============================================
+   CSS VARIABLES - Dark Theme
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    :root:not(.light-mode) {
+        --color-primary: #5ca0e9;
+        --color-primary-hover: #4a90d9;
+        --color-primary-light: #1e3a5f;
+
+        --color-bg-body: #121212;
+        --color-bg-surface: #1e1e1e;
+        --color-bg-elevated: #2d2d2d;
+        --color-bg-card: #252525;
+        --color-bg-header: #1e3a5f;
+
+        --color-text-primary: #e8e8e8;
+        --color-text-secondary: #b0b0b0;
+        --color-text-muted: #808080;
+        --color-text-inverse: #1a1a1a;
+
+        --color-border: #3d3d3d;
+        --color-border-light: #2d2d2d;
+
+        --color-success-bg: #1e3d28;
+        --color-success-text: #75d99b;
+        --color-warning-bg: #3d3520;
+        --color-warning-text: #ffd866;
+        --color-error-bg: #3d1e22;
+        --color-error-text: #ff8a95;
+        --color-info-bg: #1e3d4a;
+        --color-info-text: #7dccff;
+
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* Manual dark mode class override */
+:root.dark-mode {
+    --color-primary: #5ca0e9;
+    --color-primary-hover: #4a90d9;
+    --color-primary-light: #1e3a5f;
+
+    --color-bg-body: #121212;
+    --color-bg-surface: #1e1e1e;
+    --color-bg-elevated: #2d2d2d;
+    --color-bg-card: #252525;
+    --color-bg-header: #1e3a5f;
+
+    --color-text-primary: #e8e8e8;
+    --color-text-secondary: #b0b0b0;
+    --color-text-muted: #808080;
+    --color-text-inverse: #1a1a1a;
+
+    --color-border: #3d3d3d;
+    --color-border-light: #2d2d2d;
+
+    --color-success-bg: #1e3d28;
+    --color-success-text: #75d99b;
+    --color-warning-bg: #3d3520;
+    --color-warning-text: #ffd866;
+    --color-error-bg: #3d1e22;
+    --color-error-text: #ff8a95;
+    --color-info-bg: #1e3d4a;
+    --color-info-text: #7dccff;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+body {
+    background-color: var(--color-bg-body);
+    color: var(--color-text-primary);
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* ============================================
+   DARK MODE TOGGLE BUTTON
+   ============================================ */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--color-bg-elevated);
+    color: var(--color-text-primary);
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.dark-mode-toggle:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.dark-mode-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Sun icon (shown in dark mode) */
+.dark-mode-toggle .icon-sun {
+    display: none;
+}
+
+.dark-mode .dark-mode-toggle .icon-sun {
+    display: block;
+}
+
+.dark-mode .dark-mode-toggle .icon-moon {
+    display: none;
+}
+
+/* ============================================
+   DRUPAL CORE OVERRIDES FOR DARK MODE
+   ============================================ */
+/* Messages */
+.messages {
+    background-color: var(--color-bg-surface);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.messages--status {
+    background-color: var(--color-success-bg);
+    color: var(--color-success-text);
+    border-color: var(--color-success);
+}
+
+.messages--warning {
+    background-color: var(--color-warning-bg);
+    color: var(--color-warning-text);
+    border-color: var(--color-warning);
+}
+
+.messages--error {
+    background-color: var(--color-error-bg);
+    color: var(--color-error-text);
+    border-color: var(--color-error);
+}
+
+/* Forms */
+.form-text,
+.form-email,
+.form-tel,
+.form-url,
+.form-search,
+.form-number,
+.form-file,
+.form-textarea,
+.form-select {
+    background-color: var(--color-bg-elevated);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.form-text:focus,
+.form-email:focus,
+.form-textarea:focus,
+.form-select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* Buttons */
+.button,
+.button--primary {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    border: none;
+    transition: background-color var(--transition-fast);
+}
+
+.button:hover,
+.button--primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+/* Tables */
+table {
+    background-color: var(--color-bg-surface);
+    border-color: var(--color-border);
+}
+
+th {
+    background-color: var(--color-bg-card);
+    color: var(--color-text-primary);
+}
+
+td {
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+tr:hover {
+    background-color: var(--color-bg-card);
+}
+
+/* Links */
+a {
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-primary-hover);
+}
+
+/* Fieldsets */
+fieldset {
+    background-color: var(--color-bg-surface);
+    border-color: var(--color-border);
+}
+
+legend {
+    color: var(--color-text-primary);
+}
+
+/* Pager */
+.pager__item a {
+    background-color: var(--color-bg-elevated);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.pager__item--active a {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+}

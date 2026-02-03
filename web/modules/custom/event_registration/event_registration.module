@@ -1,0 +1,96 @@
+<?php
+
+/**
+ * @file
+ * Event Registration module file.
+ *
+ * Provides event registration functionality with admin management,
+ * AJAX-driven forms, and email notifications.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function event_registration_help(string $route_name, RouteMatchInterface $route_match): string {
+  switch ($route_name) {
+    case 'help.page.event_registration':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Event Registration module provides a complete event registration system with admin management, AJAX-driven cascading forms, and email notifications.') . '</p>';
+      $output .= '<h3>' . t('Features') . '</h3>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('Admin event configuration with registration windows') . '</li>';
+      $output .= '<li>' . t('Public registration form with AJAX cascading dropdowns') . '</li>';
+      $output .= '<li>' . t('Email notifications for users and administrators') . '</li>';
+      $output .= '<li>' . t('Registration dashboard with filtering and CSV export') . '</li>';
+      $output .= '</ul>';
+      return $output;
+
+    default:
+      return '';
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function event_registration_mail(string $key, array &$message, array $params): void {
+  /** @var \Drupal\event_registration\Service\EmailService $emailService */
+  $emailService = \Drupal::service('event_registration.email_service');
+  
+  $registration = $params['registration'] ?? [];
+
+  switch ($key) {
+    case 'user_confirmation':
+      $message['subject'] = $params['subject'] ?? t('Registration Confirmation');
+      $message['body'][] = $emailService->buildUserConfirmationBody($registration);
+      break;
+
+    case 'admin_notification':
+      $message['subject'] = $params['subject'] ?? t('New Registration Received');
+      $message['body'][] = $emailService->buildAdminNotificationBody($registration);
+      break;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function event_registration_theme(): array {
+  return [
+    'event_registration_admin_dashboard' => [
+      'variables' => [
+        'filters' => [],
+        'registrations' => [],
+        'total_count' => 0,
+        'event_dates' => [],
+        'event_names' => [],
+      ],
+      'template' => 'admin-dashboard',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * Optional: Add any scheduled tasks here, such as sending reminder emails
+ * or cleaning up old registration data.
+ */
+function event_registration_cron(): void {
+  // Placeholder for future cron tasks.
+  // Example: Send reminder emails for upcoming events.
+  // Example: Archive old registration data.
+}
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Attaches global library for dark mode support on all pages.
+ */
+function event_registration_page_attachments(array &$attachments): void {
+  $attachments['#attached']['library'][] = 'event_registration/global';
+}

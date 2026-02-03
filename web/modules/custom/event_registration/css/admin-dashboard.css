@@ -1,0 +1,223 @@
+/**
+ * @file
+ * Admin dashboard styles for Event Registration module.
+ * Uses CSS custom properties for dark mode support.
+ */
+
+/* Summary Cards */
+.admin-summary-cards {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background: var(--color-bg-surface, #f5f5f5);
+  border: 1px solid var(--color-border, #ddd);
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-width: 200px;
+  text-align: center;
+  transition: background-color var(--transition-normal, 250ms ease),
+    border-color var(--transition-normal, 250ms ease);
+}
+
+.summary-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.summary-card .count {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--color-primary, #0066cc);
+}
+
+/* Quick Links */
+.admin-quick-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Dashboard Wrapper */
+.dashboard-wrapper {
+  max-width: 100%;
+  background: var(--color-bg-body, #ffffff);
+  transition: background-color var(--transition-normal, 250ms ease);
+}
+
+/* Dashboard Summary */
+.dashboard-summary {
+  margin-bottom: 1.5rem;
+}
+
+.participant-count h2 {
+  margin: 0;
+  color: var(--color-text-primary, #333);
+}
+
+/* Filters */
+.dashboard-filters {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--color-bg-card, #f9f9f9);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 4px;
+  transition: background-color var(--transition-normal, 250ms ease),
+    border-color var(--transition-normal, 250ms ease);
+}
+
+.filter-form {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  min-width: 180px;
+  background: var(--color-bg-elevated, #ffffff);
+  color: var(--color-text-primary, #333);
+  transition: background-color var(--transition-fast, 150ms ease),
+    border-color var(--transition-fast, 150ms ease),
+    color var(--transition-fast, 150ms ease);
+}
+
+.filter-select:focus {
+  border-color: var(--color-primary, #0066cc);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-light, #e8f0fa);
+}
+
+.export-button {
+  margin-left: auto;
+  background: var(--color-success, #28a745) !important;
+  color: var(--color-text-inverse, white) !important;
+  border-color: var(--color-success, #28a745) !important;
+}
+
+.export-button:hover {
+  background: #218838 !important;
+}
+
+/* Tables */
+.registrations-table,
+.event-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: var(--color-bg-surface, #ffffff);
+  transition: background-color var(--transition-normal, 250ms ease);
+}
+
+.registrations-table th,
+.registrations-table td,
+.event-list-table th,
+.event-list-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  color: var(--color-text-primary, #333);
+}
+
+.registrations-table th,
+.event-list-table th {
+  background: var(--color-bg-card, #f5f5f5);
+  font-weight: 600;
+  color: var(--color-text-primary, #333);
+}
+
+.registrations-table tr:hover,
+.event-list-table tr:hover {
+  background: var(--color-bg-card, #f9f9f9);
+}
+
+/* Event Status */
+.event-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-open {
+  background: var(--color-success-bg, #d4edda);
+  color: var(--color-success-text, #155724);
+}
+
+.status-closed {
+  background: var(--color-error-bg, #f8d7da);
+  color: var(--color-error-text, #721c24);
+}
+
+.status-not-open {
+  background: var(--color-warning-bg, #fff3cd);
+  color: var(--color-warning-text, #856404);
+}
+
+.status-completed {
+  background: var(--color-bg-surface, #e2e3e5);
+  color: var(--color-text-secondary, #383d41);
+}
+
+.status-upcoming {
+  background: var(--color-info-bg, #cce5ff);
+  color: var(--color-info-text, #004085);
+}
+
+/* Event List Actions */
+.event-list-actions {
+  margin-bottom: 1.5rem;
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-text-muted, #666);
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-summary-cards {
+    flex-direction: column;
+  }
+
+  .dashboard-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-form {
+    flex-direction: column;
+  }
+
+  .filter-select {
+    width: 100%;
+  }
+
+  .export-button {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+
+  .registrations-table,
+  .event-list-table {
+    font-size: 0.875rem;
+  }
+}

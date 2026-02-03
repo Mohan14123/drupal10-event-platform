@@ -1,0 +1,81 @@
+{#
+/**
+ * @file
+ * Admin dashboard template for Event Registration module.
+ *
+ * Available variables:
+ * - filters: Current filter values.
+ * - registrations: Array of registration data.
+ * - total_count: Total number of registrations.
+ * - event_dates: Available event dates for filtering.
+ * - event_names: Available event names for filtering.
+ */
+#}
+<div class="dashboard-wrapper">
+  <div class="dashboard-summary">
+    <h2>{{ 'Participants: @count'|t({'@count': total_count}) }}</h2>
+  </div>
+
+  <div class="dashboard-filters">
+    <form method="get" class="filter-form">
+      <select name="event_date" class="filter-select">
+        <option value="">{{ '- All Dates -'|t }}</option>
+        {% for date, label in event_dates %}
+          <option value="{{ date }}"{% if filters.event_date == date %} selected{% endif %}>
+            {{ label }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <select name="event_id" class="filter-select">
+        <option value="">{{ '- All Events -'|t }}</option>
+        {% for id, name in event_names %}
+          <option value="{{ id }}"{% if filters.event_id == id %} selected{% endif %}>
+            {{ name }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <button type="submit" class="button button--primary">{{ 'Filter'|t }}</button>
+      <a href="{{ path('event_registration.admin_dashboard') }}" class="button">{{ 'Reset'|t }}</a>
+      <a href="{{ path('event_registration.export_csv', {}, {'query': filters}) }}" class="button export-button">
+        {{ 'Export CSV'|t }}
+      </a>
+    </form>
+  </div>
+
+  {% if registrations is empty %}
+    <p class="no-results">{{ 'No registrations found.'|t }}</p>
+  {% else %}
+    <table class="registrations-table">
+      <thead>
+        <tr>
+          <th>{{ 'ID'|t }}</th>
+          <th>{{ 'Name'|t }}</th>
+          <th>{{ 'Email'|t }}</th>
+          <th>{{ 'College'|t }}</th>
+          <th>{{ 'Department'|t }}</th>
+          <th>{{ 'Event'|t }}</th>
+          <th>{{ 'Category'|t }}</th>
+          <th>{{ 'Event Date'|t }}</th>
+          <th>{{ 'Registered'|t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for registration in registrations %}
+          <tr>
+            <td>{{ registration.id }}</td>
+            <td>{{ registration.full_name }}</td>
+            <td>{{ registration.email }}</td>
+            <td>{{ registration.college_name }}</td>
+            <td>{{ registration.department }}</td>
+            <td>{{ registration.event_name }}</td>
+            <td>{{ registration.category }}</td>
+            <td>{{ registration.event_date|date('M j, Y') }}</td>
+            <td>{{ registration.created|date('M j, Y g:i A') }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>

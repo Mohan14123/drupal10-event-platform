@@ -1,0 +1,63 @@
+{
+    "name": "drupal/event-registration-platform",
+    "description": "Drupal 10 Event Registration Platform with containerized development environment",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.2",
+        "composer/installers": "^2.0",
+        "drupal/core-composer-scaffold": "^10.2",
+        "drupal/core-recommended": "^10.2",
+        "drush/drush": "^12.0"
+    },
+    "require-dev": {
+        "drupal/core-dev": "^10.2"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "phpstan/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true
+        },
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            },
+            "file-mapping": {
+                "[web-root]/sites/development.services.yml": false
+            }
+        },
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Drupal\\event_registration\\": "web/modules/custom/event_registration/src/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "if [ -d 'web/sites/default' ]; then chmod 755 web/sites/default; fi"
+        ],
+        "post-update-cmd": [
+            "if [ -d 'web/sites/default' ]; then chmod 755 web/sites/default; fi"
+        ]
+    }
+}
