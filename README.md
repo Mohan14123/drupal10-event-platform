@@ -390,7 +390,7 @@ docker-compose exec php chown -R www-data:www-data /var/www/html/web/sites/defau
 
 ## License
 
-This project is licensed under the GPL-2.0-or-later license.
+This project is licensed under the MIT license.
 
 ## Support
 
